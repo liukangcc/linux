@@ -261,7 +261,6 @@ struct stm32_port {
 	u32 cr1_irq;		 /* USART_CR1_RXNEIE or RTOIE */
 	u32 cr3_irq;		 /* USART_CR3_RXFTIE */
 	int last_res;
-	bool tx_dma_busy;	 /* dma tx busy               */
 	bool throttled;		 /* port throttled            */
 	bool hw_flow_control;
 	bool fifoen;
@@ -270,8 +269,8 @@ struct stm32_port {
 	bool wakeup_src;
 	int rdr_mask;		/* receive data register mask */
 	struct mctrl_gpios *gpios; /* modem control gpios */
-	struct dma_tx_state state;
-	enum dma_status status;
+	struct dma_tx_state rx_dma_state;
+	bool tx_dma_busy;	/* dma tx transaction in progress */
 };
 
 static struct stm32_port stm32_ports[STM32_MAX_PORTS];
